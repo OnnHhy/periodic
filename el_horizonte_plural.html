@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El Horizonte Plural — Nº 124</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=UnifrakturMaguntia&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1208;
+    --paper: #f5eedc;
+    --paper-dark: #e8dfc5;
+    --accent: #8b1a1a;
+    --accent-light: #c0392b;
+    --gold: #b8860b;
+    --mid: #5c4a2a;
+    --rule: #3a2e1a;
+    --gray: #6b5e4a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #ccc5b0;
+    font-family: 'Libre Baskerville', Georgia, serif;
+    color: var(--ink);
+    padding: 20px;
+  }
+
+  .page {
+    max-width: 1100px;
+    margin: 0 auto;
+    background: var(--paper);
+    box-shadow: 0 4px 40px rgba(0,0,0,0.45);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Texture overlay */
+  .page::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 10;
+    opacity: 0.5;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead {
+    border-bottom: 4px double var(--rule);
+    padding: 0 30px 0;
+    background: var(--paper);
+  }
+
+  .masthead-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0 6px;
+    border-bottom: 1px solid var(--rule);
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 9.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--mid);
+  }
+
+  .masthead-top span { flex: 1; }
+  .masthead-top span:nth-child(2) { text-align: center; }
+  .masthead-top span:last-child { text-align: right; }
+
+  .nameplate {
+    text-align: center;
+    padding: 12px 0 6px;
+  }
+
+  .nameplate h1 {
+    font-family: 'UnifrakturMaguntia', cursive;
+    font-size: 82px;
+    line-height: 1;
+    color: var(--ink);
+    letter-spacing: 2px;
+  }
+
+  .lema {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 3px 0 8px;
+  }
+
+  .oreja-bar {
+    display: flex;
+    border-top: 1px solid var(--rule);
+    border-bottom: 3px solid var(--rule);
+  }
+
+  .oreja {
+    flex: 1;
+    padding: 6px 14px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 10px;
+    line-height: 1.5;
+  }
+
+  .oreja strong {
+    display: block;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 2px;
+  }
+
+  .oreja:first-child { border-right: 1px solid var(--rule); }
+
+  /* ── RULE UTILITIES ── */
+  hr.thick { border: none; border-top: 3px solid var(--rule); margin: 0; }
+  hr.thin  { border: none; border-top: 1px solid var(--rule); margin: 8px 0; }
+  hr.double { border: none; border-top: 4px double var(--rule); margin: 10px 0; }
+
+  /* ── BODY LAYOUT ── */
+  .body-wrap { padding: 0 30px 30px; }
+
+  /* Section headers */
+  .section-label {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--paper);
+    background: var(--rule);
+    display: inline-block;
+    padding: 3px 10px;
+    margin: 18px 0 10px;
+  }
+
+  /* ── PORTADA GRID ── */
+  .portada-grid {
+    display: grid;
+    grid-template-columns: 1fr 2px 2.4fr 2px 1.2fr;
+    gap: 0;
+    margin-top: 4px;
+  }
+
+  .col-rule {
+    background: var(--rule);
+    width: 1px;
+    margin: 0 10px;
+  }
+
+  /* Article typography */
+  .kicker {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 9.5px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 5px;
+  }
+
+  h2.headline {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: 30px;
+    line-height: 1.08;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+
+  h2.headline.xl {
+    font-size: 44px;
+  }
+
+  h3.subhead {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 1.3;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+
+  .deck {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--mid);
+    margin-bottom: 8px;
+    font-style: italic;
+  }
+
+  p.body-text {
+    font-size: 11.5px;
+    line-height: 1.72;
+    color: var(--ink);
+    text-align: justify;
+    hyphens: auto;
+    margin-bottom: 8px;
+  }
+
+  p.body-text:first-of-type::first-letter {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+    font-weight: 900;
+    float: left;
+    line-height: 0.82;
+    margin: 4px 6px 0 0;
+    color: var(--accent);
+  }
+
+  .byline {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 8px;
+  }
+
+  /* Pull quote */
+  .pull-quote {
+    border-top: 3px solid var(--accent);
+    border-bottom: 1px solid var(--accent);
+    padding: 10px 14px;
+    margin: 12px 0;
+  }
+
+  .pull-quote p {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    font-style: italic;
+    line-height: 1.45;
+    color: var(--accent);
+  }
+
+  .pull-quote cite {
+    display: block;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-top: 6px;
+    font-style: normal;
+  }
+
+  /* Image placeholder */
+  .img-box {
+    background: var(--paper-dark);
+    border: 1px solid #c8b98a;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    color: var(--gray);
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .img-box svg { opacity: 0.4; }
+
+  .img-cap {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 9px;
+    color: var(--gray);
+    font-style: italic;
+    margin-top: 4px;
+    line-height: 1.4;
+  }
+
+  /* ── COLUMNAS SECTION ── */
+  .three-col {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+  }
+
+  .three-col > * + * {
+    border-left: 1px solid var(--rule);
+    padding-left: 16px;
+    margin-left: 10px;
+  }
+
+  .three-col > *:not(:last-child) {
+    padding-right: 16px;
+  }
+
+  /* ── EDUCACION SECTION ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+
+  .bullet-list {
+    list-style: none;
+    margin: 8px 0;
+  }
+
+  .bullet-list li {
+    font-size: 11.5px;
+    line-height: 1.65;
+    padding: 6px 0 6px 18px;
+    position: relative;
+    border-bottom: 1px dotted #c8b98a;
+  }
+
+  .bullet-list li::before {
+    content: '◆';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 8px;
+    top: 9px;
+  }
+
+  .bullet-list li strong {
+    display: block;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: var(--accent);
+    font-size: 12px;
+  }
+
+  /* ── CRUCIGRAMA ── */
+  .crossword-grid {
+    display: grid;
+    grid-template-columns: 1fr 2px 1fr;
+    gap: 0;
+    margin-top: 6px;
+  }
+
+  .crossword-item {
+    padding: 8px 4px;
+    border-bottom: 1px dotted #c8b98a;
+  }
+
+  .crossword-item .num {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .crossword-item .clue {
+    font-size: 10.5px;
+    line-height: 1.5;
+    margin: 2px 0;
+  }
+
+  .crossword-item .answer {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.35em;
+    font-weight: 600;
+    color: var(--mid);
+    margin-top: 3px;
+  }
+
+  /* ── CLASIFICADOS ── */
+  .clasificados {
+    background: var(--paper-dark);
+    border: 1px solid #c8b98a;
+    padding: 12px 16px;
+    margin-top: 10px;
+  }
+
+  .clasificados-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    font-weight: 700;
+    text-align: center;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 5px;
+    margin-bottom: 8px;
+  }
+
+  .clasificado-item {
+    font-size: 10.5px;
+    line-height: 1.6;
+    padding: 4px 0;
+    border-bottom: 1px dotted #c8b98a;
+  }
+
+  .clasificado-item strong {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  /* ── FRASE DEL DÍA ── */
+  .frase-dia {
+    background: var(--rule);
+    color: var(--paper);
+    padding: 14px 20px;
+    margin: 14px 0;
+    text-align: center;
+  }
+
+  .frase-dia p {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  .frase-dia cite {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 9.5px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-top: 6px;
+    display: block;
+    font-style: normal;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    border-top: 4px double var(--rule);
+    padding: 8px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gray);
+  }
+
+  /* ── NUMERACIÓN DE COLUMNAS ── */
+  .portada-left { padding-right: 10px; }
+  .portada-center { padding: 0 10px; }
+  .portada-right { padding-left: 10px; }
+
+  .inset-box {
+    background: var(--paper-dark);
+    border: 1px solid #c8b98a;
+    padding: 10px 12px;
+    margin: 10px 0;
+  }
+
+  .inset-box h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    border-bottom: 1px solid #c8b98a;
+    padding-bottom: 4px;
+  }
+
+  .inset-box p {
+    font-size: 10.5px;
+    line-height: 1.6;
+  }
+
+  .three-dim {
+    counter-reset: dim;
+    list-style: none;
+    margin: 8px 0;
+  }
+
+  .three-dim li {
+    font-size: 11px;
+    line-height: 1.65;
+    padding: 7px 0 7px 28px;
+    position: relative;
+    border-bottom: 1px dotted #c8b98a;
+    counter-increment: dim;
+  }
+
+  .three-dim li::before {
+    content: counter(dim);
+    position: absolute;
+    left: 0;
+    top: 7px;
+    width: 18px;
+    height: 18px;
+    background: var(--accent);
+    color: var(--paper);
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .three-dim li strong {
+    display: block;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 12.5px;
+    color: var(--accent);
+    margin-bottom: 2px;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ══════════════ MASTHEAD ══════════════ -->
+  <div class="masthead">
+    <div class="masthead-top">
+      <span>Yacuiba, Gran Chaco, Bolivia</span>
+      <span>Fundado para la Justicia Cognitiva</span>
+      <span>22 de marzo de 2026 &nbsp;·&nbsp; Nº 124</span>
+    </div>
+
+    <div class="nameplate">
+      <p class="lema">Descolonizando el saber para liberar el ser</p>
+      <h1>El Horizonte Plural</h1>
+    </div>
+
+    <div class="oreja-bar">
+      <div class="oreja">
+        <strong>Tecnología</strong>
+        ¿Es posible una soberanía digital? El reto de los protocolos abiertos y el hardware libre en el Chaco.
+      </div>
+      <div class="oreja">
+        <strong>Educación</strong>
+        ESFM Juan Misael Saracho presenta nuevos materiales didácticos basados en la cosmovisión regional.
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ BODY ══════════════ -->
+  <div class="body-wrap">
+
+    <!-- SECTION LABEL -->
+    <div class="section-label">Primera Plana</div>
+
+    <!-- PORTADA GRID -->
+    <div class="portada-grid">
+
+      <!-- COL LEFT -->
+      <div class="portada-left">
+        <div class="kicker">Editorial</div>
+        <h3 class="subhead">La Epistemología como Problema Político</h3>
+        <hr class="thin">
+        <p class="body-text">Históricamente, nos han enseñado que la epistemología es simplemente el estudio del conocimiento. Sin embargo, hoy debemos denunciar que ha sido, ante todo, un problema de poder. Durante siglos, el modelo eurocéntrico se impuso como el único camino hacia la "verdad".</p>
+        <p class="body-text">Este "monismo" no solo empobreció nuestra cultura, sino que facilitó el dominio político. Si solo una forma de conocer es válida, solo una forma de vivir es aceptable.</p>
+        <div class="pull-quote">
+          <p>"El conocimiento es un territorio en disputa"</p>
+        </div>
+        <p class="body-text">La descolonización no es un retroceso al pasado, sino un avance hacia un futuro donde la razón no esté divorciada del corazón: el <em>sentipensar</em>.</p>
+
+        <!-- Image placeholder -->
+        <div class="img-box" style="height:130px; margin-top:10px;">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span>Imagen / Fotografía</span>
+        </div>
+        <p class="img-cap">Espacio reservado para fotografía editorial</p>
+      </div>
+
+      <div class="col-rule"></div>
+
+      <!-- COL CENTER (MAIN) -->
+      <div class="portada-center">
+        <div class="kicker">Titular Principal</div>
+        <h2 class="headline xl">La Rebelión de los Saberes: Bolivia Lidera la Transición hacia el Pluralismo Epistemológico</h2>
+        <hr class="thin">
+        <p class="deck">Académicos y comunidades proponen el fin de la "verdad única" para dar paso a una educación que reconoce los conocimientos ancestrales y populares al mismo nivel que la ciencia moderna.</p>
+
+        <!-- Large image placeholder -->
+        <div class="img-box" style="height:200px; margin: 10px 0;">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span>Imagen Principal</span>
+        </div>
+        <p class="img-cap" style="text-align:center;">Imagen central de portada — espacio reservado</p>
+
+        <p class="body-text">En un giro histórico para la educación superior en América Latina, el debate sobre la descolonización del conocimiento ha pasado de los libros a la praxis. Expertos aseguran que la epistemología tradicional ha funcionado como un filtro de poder, invisibilizando saberes que hoy son clave para enfrentar las crisis globales.</p>
+        <p class="body-text">La propuesta es clara: no se trata de negar la ciencia, sino de integrarla en una <strong>"Ecología de Saberes"</strong> donde nadie tiene la última palabra. Un diálogo donde se reconoce que la ciencia moderna tiene límites y que hay problemas que la sabiduría comunitaria puede resolver, y viceversa.</p>
+
+        <div class="frase-dia" style="margin: 12px 0 0;">
+          <p>"No habrá justicia social global sin justicia cognitiva global"</p>
+          <cite>— Boaventura de Sousa Santos</cite>
+        </div>
+      </div>
+
+      <div class="col-rule"></div>
+
+      <!-- COL RIGHT -->
+      <div class="portada-right">
+        <div class="kicker">Análisis Académico</div>
+        <h3 class="subhead">El Pensamiento Pluralista contra el Dogma</h3>
+        <div class="byline">Por: Redacción Académica</div>
+        <hr class="thin">
+        <p class="body-text">El pensamiento pluralista se presenta hoy como el antídoto contra el dogmatismo que ha asfixiado a las ciencias sociales.</p>
+        <p class="body-text">Ser pluralista hoy no es solo ser "tolerante". Es reconocer que el otro posee una pieza del rompecabezas que nosotros no tenemos.</p>
+        <p class="body-text">En el ámbito educativo, el maestro no es el único poseedor de la luz, sino un mediador en un ecosistema donde el estudiante, la comunidad y el entorno natural también generan teoría.</p>
+
+        <div class="img-box" style="height:110px; margin: 10px 0;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span>Fotografía</span>
+        </div>
+        <p class="img-cap">Espacio para imagen de apoyo</p>
+
+        <div class="inset-box">
+          <h4>Crucigrama Decolonial</h4>
+          <p style="font-size:10px; color:var(--gray);">Ver contraportada — pág. 4</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════ SECCIÓN NACIONAL ══════════════ -->
+    <hr class="double" style="margin-top:18px;">
+    <div class="section-label">Nacional · Profundización Teórica</div>
+
+    <div class="two-col">
+      <div>
+        <div class="kicker">Reportaje Central</div>
+        <h2 class="headline">¿Qué entendemos realmente por Pluralismo?</h2>
+        <p class="deck">Para comprender el pluralismo en el siglo XXI, debemos alejarnos de la definición liberal que lo reduce a "dejar que otros hablen".</p>
+        <p class="body-text">El pluralismo radical que proponen autores como Boaventura de Sousa Santos o Enrique Dussel va mucho más allá. Se divide en tres dimensiones críticas que reconfiguran la manera en que entendemos el Estado, la cultura y el conocimiento.</p>
+
+        <ul class="three-dim">
+          <li>
+            <strong>Pluralismo Político</strong>
+            El reconocimiento de que el Estado no es una unidad homogénea, sino una composición de naciones y pueblos con sus propias formas de autogobierno.
+          </li>
+          <li>
+            <strong>Pluralismo Cultural</strong>
+            La convivencia de identidades que no buscan parecerse a un modelo estándar, sino reafirmar su diferencia como un valor en sí mismo.
+          </li>
+          <li>
+            <strong>Pluralismo Epistemológico</strong>
+            El reconocimiento de que existen diferentes criterios de validez para el conocimiento. El saber de un agricultor sobre el ciclo del agua es tan válido para la comunidad como el cálculo de un ingeniero hidráulico.
+          </li>
+        </ul>
+
+        <p class="body-text">La <strong>descolonización</strong> es el proceso de "limpiar" nuestras mentes de la idea de que lo extranjero es superior. Es un ejercicio de justicia cognitiva: no podemos hablar de justicia social si no hay justicia entre los saberes.</p>
+      </div>
+
+      <div>
+        <div class="img-box" style="height:180px; margin-bottom:12px;">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span>Ilustración / Infografía</span>
+        </div>
+        <p class="img-cap" style="text-align:center; margin-bottom:12px;">Espacio para infografía de las tres dimensiones del pluralismo</p>
+
+        <div class="inset-box">
+          <h4>El Desafío de la Descolonización</h4>
+          <p style="font-size:10.5px; line-height:1.65;">El pluralismo es la herramienta de la descolonización: permite que lo que fue negado vuelva a ocupar su lugar en la mesa del diálogo mundial.</p>
+        </div>
+
+        <div class="pull-quote" style="margin-top:12px;">
+          <p>"No podemos hablar de justicia social si no hay justicia entre los saberes."</p>
+          <cite>Reportaje Central, El Horizonte Plural</cite>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════ EDUCACIÓN Y SOCIEDAD ══════════════ -->
+    <hr class="double" style="margin-top:18px;">
+    <div class="section-label">Educación y Sociedad</div>
+
+    <div class="two-col">
+      <div>
+        <div class="kicker">Artículo</div>
+        <h2 class="headline">Cómo entender el Pluralismo Epistemológico en el Aula</h2>
+        <p class="deck">En la formación docente, especialmente en Educación Especial, el pluralismo epistemológico cambia las reglas del juego.</p>
+        <p class="body-text">Ya no se trata de "normalizar" al estudiante bajo un estándar rígido, sino de entender sus propias lógicas de aprendizaje. Tres conceptos clave guían esta transformación pedagógica:</p>
+
+        <ul class="bullet-list">
+          <li>
+            <strong>La Ecología de Saberes</strong>
+            No es una mezcla desordenada de ideas. Es un diálogo donde se reconoce que la ciencia moderna tiene límites. Hay problemas que la sabiduría comunitaria puede resolver, y viceversa.
+          </li>
+          <li>
+            <strong>La Transmodernidad</strong>
+            Como propone Dussel, debemos ir más allá de la modernidad: recuperar lo que fue descartado y unirlo con los avances tecnológicos actuales para crear algo genuinamente nuevo.
+          </li>
+          <li>
+            <strong>Interculturalidad Crítica</strong>
+            No es solo "celebrar la diversidad" con danzas una vez al año. Es transformar el currículo para que la historia, la geografía y la ética se enseñen desde la perspectiva de quienes habitan el territorio.
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="img-box" style="height:200px; margin-bottom:12px;">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span>Fotografía de Aula</span>
+        </div>
+        <p class="img-cap" style="text-align:center; margin-bottom:12px;">Espacio para fotografía de práctica docente</p>
+
+        <div class="inset-box">
+          <h4>ESFM Juan Misael Saracho</h4>
+          <p style="font-size:10.5px; line-height:1.65;">Presenta nuevos materiales didácticos basados en la cosmovisión regional del Gran Chaco boliviano.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════ TECNOLOGÍA ══════════════ -->
+    <hr class="double" style="margin-top:18px;">
+    <div class="section-label">Tecnología y Ciencia</div>
+
+    <div class="three-col">
+      <div>
+        <div class="kicker">Análisis</div>
+        <h3 class="subhead">Sensores, Datos y Soberanía</h3>
+        <p class="body-text">Incluso en la tecnología hay colonialidad. Cuando usamos dispositivos que no podemos reparar o software cuyos códigos son secretos, estamos bajo una nueva forma de dominio tecnológico.</p>
+        <p class="body-text">La descolonización tecnológica propone el uso de <strong>hardware abierto</strong> y protocolos de transmisión que permitan a las comunidades locales gestionar su propia información.</p>
+      </div>
+
+      <div>
+        <div class="img-box" style="height:140px; margin-bottom:10px;">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span>Imagen Técnica</span>
+        </div>
+        <p class="img-cap" style="text-align:center;">Espacio para imagen de hardware libre o sensores</p>
+        <div class="pull-quote">
+          <p>"La implementación de redes propias es un acto de soberanía informativa."</p>
+        </div>
+      </div>
+
+      <div>
+        <p class="body-text">La comparación de sensores en dispositivos móviles o la implementación de redes propias no son solo tareas técnicas; son actos de soberanía informativa en un mundo hiperconectado.</p>
+        <div class="inset-box">
+          <h4>¿Soberanía Digital en el Chaco?</h4>
+          <p style="font-size:10.5px; line-height:1.65;">El reto de los protocolos abiertos y el hardware libre como respuesta al colonialismo tecnológico en comunidades rurales.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════ CONTRAPORTADA ══════════════ -->
+    <hr class="double" style="margin-top:20px;">
+    <div class="section-label">Contraportada · Entretenimiento y Cierre</div>
+
+    <div class="two-col" style="align-items:start;">
+      <div>
+        <div class="kicker">Crucigrama Decolonial</div>
+        <h3 class="subhead">Crucigrama Decolonial</h3>
+        <hr class="thin">
+        <div class="crossword-grid">
+          <div>
+            <div class="crossword-item">
+              <div class="num">1 · Horizontal (11 letras)</div>
+              <div class="clue">Concepto de unir el sentimiento con la razón</div>
+              <div class="answer">S E N T I P E N S A R</div>
+            </div>
+            <div class="crossword-item">
+              <div class="num">3 · Horizontal (7 letras)</div>
+              <div class="clue">Autor que habla de la Colonialidad del Poder</div>
+              <div class="answer">Q U I J A N O</div>
+            </div>
+          </div>
+          <div class="col-rule" style="margin: 0 8px;"></div>
+          <div>
+            <div class="crossword-item">
+              <div class="num">2 · Vertical (13 letras)</div>
+              <div class="clue">Destrucción de saberes locales por una cultura dominante</div>
+              <div class="answer">E P I S T E M I C I D I O</div>
+            </div>
+            <div class="crossword-item">
+              <div class="num">4 · Vertical (10 letras)</div>
+              <div class="clue">Reconocimiento de múltiples formas de conocer</div>
+              <div class="answer">P L U R A L I S M O</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Crossword image placeholder -->
+        <div class="img-box" style="height:160px; margin-top:14px;">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span>Grilla del Crucigrama</span>
+        </div>
+        <p class="img-cap" style="text-align:center;">Espacio para cuadrícula del crucigrama impresa</p>
+      </div>
+
+      <div>
+        <div class="frase-dia">
+          <p>"No habrá justicia social global sin justicia cognitiva global"</p>
+          <cite>— Boaventura de Sousa Santos</cite>
+        </div>
+
+        <div class="clasificados">
+          <div class="clasificados-title">Avisos Clasificados</div>
+          <div class="clasificado-item">
+            <strong>Se busca</strong><br>
+            Estudiantes dispuestos a cuestionar todo lo que han leído en libros eurocéntricos.
+          </div>
+          <div class="clasificado-item">
+            <strong>Se vende</strong><br>
+            Idea de que existe una sola cultura superior. <em>(Precio: un poco de lectura crítica)</em>
+          </div>
+          <div class="clasificado-item">
+            <strong>Taller</strong><br>
+            Diseño de paneles didácticos descolonizados. Informes en la coordinación.
+          </div>
+        </div>
+
+        <div class="img-box" style="height:120px; margin-top:14px;">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span>Imagen de Cierre</span>
+        </div>
+        <p class="img-cap" style="text-align:center;">Espacio para imagen de contraportada</p>
+      </div>
+    </div>
+
+  </div><!-- /body-wrap -->
+
+  <!-- ══════════════ FOOTER ══════════════ -->
+  <div class="footer">
+    <span>El Horizonte Plural &copy; 2026</span>
+    <span>Yacuiba, Gran Chaco, Bolivia</span>
+    <span>Edición Nº 124 &nbsp;·&nbsp; 22 de marzo de 2026</span>
+  </div>
+
+</div><!-- /page -->
+</body>
+</html>
